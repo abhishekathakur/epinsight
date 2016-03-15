@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Essel Propack</title>
+    <link href="../css/ionic.css" rel="stylesheet">
+    <link href="../css/app.css" rel="stylesheet">
+
+   <script type="text/javascript" src="cordova.js"></script>
+   <link rel="stylesheet" href="../css/bootstrap.min.css">
+   <script src="js/jquery.min.js"></script>
+   <script src="../js/Chart.js"></script>
+   <script src="../js/numeral.js"></script>
+   <script src="../js/bootstrap.min.js"></script>
+   <script src="../js/d3.v3.min.js" charset="utf-8"></script>
+
+    <link href="../css/nv.d3.css" rel="stylesheet" type="text/css">
+  
+    <script src="../js/nv.d3.js"></script>
+    <script src="../js/stream_layers.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+
+<script>
+function onLoad()
+{ // alert("load");
+    //console.log("device reday !!!!")
+    document.addEventListener("deviceready", onDeviceReady, true);
+}
+function exitFromApp()
+{
+   
+	var r = confirm("Are you want to exit!");
+	if (r == true) 
+	     {
+			navigator.app.exitApp();
+	     } 
+}
+
+//Select Date & Month
+
+var amonth = new Array(12);
+var monthdays = new Array(12);
+var cur="LCY";
+var mtd_lcy="",ytd_lcy=""; 
+var mtd_usd="",ytd_usd="";
+var dtd_usd="",dtd_lcy="";
+var ctd_usd="",ctd_lcy="";
+
+
+amonth[1]="January";
+amonth[2]="February";
+amonth[3]="March";
+amonth[4]="April";
+amonth[5]="May";
+amonth[6]="June";
+amonth[7]="July";
+amonth[8]="August";
+amonth[9]="September";
+amonth[10]="October";
+amonth[11]="November";
+amonth[12]="December";
+
+monthdays[1]="31";
+monthdays[2]="28";
+monthdays[3]="31";
+monthdays[4]="30";
+monthdays[5]="31";
+monthdays[6]="30";
+monthdays[7]="31";
+monthdays[8]="31";
+monthdays[9]="30";
+monthdays[10]="31";
+monthdays[11]="30";
+monthdays[12]="31";
+
+
+
+var d = new Date();
+d.setDate(d.getDate()-5);
+var mon = d.getMonth()+1;
+
+var yr = d.getFullYear();
+var actyr="";
+if(mon>3)
+{   var yr1=yr+1;
+    actyr=yr.toString()+"-"+yr1.toString().substring(2,4);
+}
+else
+{
+var yr1=yr-1;
+actyr=yr1.toString()+"-"+yr.toString().substring(2,4);
+}
+
+var datedim=amonth[mon]+":"+actyr;
+//Select Date & Month
+
+var dt=new Date();
+var mn = dt.getMonth()+1;
+var nom=monthdays[mn];
+var dom=dt.getDate();
+var doy="365";
+var first = new Date(dt.getFullYear(), 0, 1);
+var theDay = Math.round(((dt - first) / 1000 / 60 / 60 / 24) + .5, 0);
+if(mn<4)
+{
+	doy=275+theDay;
+
+}
+else
+{
+	doy=theday-90;
+}
+
+if(mon!=mn)
+	{
+	
+	  
+	   mn=mn-1;
+	  if(mn==0)
+		 nom= monthdays[12];
+	  else
+		  nom=monthdays[mn];
+	  
+	  dom=nom;
+	  
+	
+	}
+
+//Select dom & doy
+
+var sURL = window.document.URL.toString();
+var varArray = sURL.split("="); //eg. index.html?msg=1
+//alert("lvl"+sURL);
+var param1 = varArray[1].split(";");
+
+var empid = param1[0];
+var sales = param1[1];
+var prod = param1[2];
+var inv = param1[3];
+var lvl = param1[4];
+var region = param1[5];
+var country = param1[6];
+var kam = param1[7];
+
+///lvl=0;
+var param=lvl,qstring="All";
+//qstring="EG MOETAZ AFIFY";
+///param=0;
+//alert(param);
+function goHome()
+{  
+	 location.href="../main.html?empid="+empid+";"+sales+";"+prod+";"+inv+";"+param1[4]+";"+region+";"+country+";"+kam;
+
+}
+
+function Changeit(par,reg)
+	{ 
+	  if(par==0)
+		  cur="USD";
+	  if(par==1)
+		  cur="USD";
+	  
+	    param=par;
+	    qstring=reg;
+	
+	 SelectMTSQuery(reg);
+	 MTDList(param);
+	 SelectYTDQuery(reg);
+	 YTDList(param);
+	 SelectMTRQuery(reg);
+	 MonthlyTrends(param);
+	 SelectCatQuery(qstring);
+	 CategoryContribution(param);
+	
+	
+	  
+	}
+function ChangeCur(pcur)
+{  
+	
+	if(param==0)
+	{	cur="USD";
+		alert("LCY not allowed in Region");
+		DisableCur();
+	}
+else if(param==1)
+	{
+		cur="USD";
+		alert("LCY not allowed in Region");
+		DisableCur();
+	}
+else
+	{
+	cur=pcur;
+	changeCurDisplay(pcur);
+	}
+}
+     
+
+
+
+function Changeit1(par,reg)
+{ 
+  if(par==0)
+	  cur="USD";
+  if(par==1)
+	  cur="USD";
+  
+    param=par;
+    qstring=reg;
+
+    SelectMTSQuery_Dash2(qstring);
+	MTDList_Dash2(param);
+	SelectYTDQuery_Dash2(qstring);
+	//alert(qstring);
+	YTDList_Dash2(param);
+	SelectMTRQuery_Dash2(qstring);
+	MonthlyTrends_Dash2(param);
+	SelectCatQuery_Dash2(qstring);
+	CategoryContribution_Dash2(param);
+
+
+  
+}
+function ChangeCur1(pcur)
+{  
+
+if(param==0)
+{	cur="USD";
+	alert("LCY not allowed in Region");
+	DisableCur1();
+}
+else if(param==1)
+{
+	cur="USD";
+	alert("LCY not allowed in Region");
+	DisableCur1();
+}
+else
+{
+cur=pcur;
+changeCurDisplay1(pcur);
+}
+}
+
+
+
+function Changeit3(par,reg)
+{ 
+  if(par==0)
+	  cur="USD";
+  if(par==1)
+	  cur="USD";
+  
+    param=par;
+    qstring=reg;
+
+    SelectMTSQuery_Dash3(qstring);
+	MTDList_Dash3(param);
+
+
+  
+}
+function ChangeCur3(pcur)
+{  
+
+
+if(param==0)
+{	cur="USD";
+	alert("LCY not allowed in Region");
+	DisableCur3();
+}
+else if(param==1)
+{
+	cur="USD";
+	alert("LCY not allowed in Region");
+	DisableCur3();
+}
+else
+{
+cur=pcur;
+changeCurDisplay3(pcur);
+}
+}
+
+</script>
+<script type="text/javascript"> 
+
+function onLoad()
+{ // alert("load");
+    //console.log("device reday !!!!")
+    document.addEventListener("deviceready", onDeviceReady, true);
+}
+function exitFromApp()
+{
+   
+	var r = confirm("Are you want to close App!");
+	if (r == true) 
+	     {
+			navigator.app.exitApp();
+	     } 
+}
+
+function toggle5() {
+    var ele = document.getElementById("contentDivImg");
+    var imageEle = document.getElementById("imageDivLink");
+    if(ele.style.display == "block") {
+            ele.style.display = "none";
+	         imageEle.innerHTML = '<img src="../img/plus.png">';
+    }
+    else {
+            ele.style.display = "block";
+           imageEle.innerHTML = '<img src="../img/minus.png">';
+    }
+}
+
+//ion-stats-bars 
+</script>
+
+<style type="text/css">
+#headerDivImg, #contentDivImg, #contentDivImg_ {
+     float: left;
+     width: 100%;
+}
+#titleTextImg {
+     float: left;
+     font-size: 0.9em;
+     font-weight: bold;
+     margin: 1px;
+}
+#imageDivLink {
+     float: right;
+}
+#headerDivImg {
+     background-color: #e5eecc;
+     
+}
+#contentDivImg, #contentDivImg_ {
+     background-color: #e5eecc;
+     text-align: left;
+}
+#headerDivImg img {
+     float: right;
+     margin: 1px 1px 1px 1px;
+}
+</style>
+
+
+<style> 
+
+.flip {
+    padding: 1px;
+    text-align: center;
+    background-color: #e5eecc;
+    border: solid 1px #c3c3c3;
+}
+.panel{
+    padding: 1px;
+    text-align: center;
+    background-color: #e5eecc;
+    border: solid 1px #c3c3c3;
+}
+.flip.span {
+    text-align: right;
+}
+.contentDivImg {
+    padding: 5px;
+    display: none;
+}
+
+
+</style>
+
+
+	<style>
+
+
+
+        text {
+            font: 12px sans-serif;
+        }
+
+        svg {
+            display: block;
+            float: left;
+        }
+        #test2 {
+            height: 350px !important;
+            width: 350px !important;
+        }
+        #graph3 {
+            height: 350px !important;
+            width: 350px !important;
+			 overflow: auto;
+        }
+        #graph4 {
+            height: 350px !important;
+            width: 350px !important;
+			 overflow: auto;
+        }
+        html, body , #container, svg {
+            margin: 0px;
+            padding: 0px;
+            height: 100%;
+            width: 100%;
+        }
+
+        .nvd3.nv-pie.nv-chart-donut2 .nv-pie-title {
+            fill: rgba(70, 107, 168, 0.78);
+        }
+
+        .nvd3.nv-pie.nv-chart-donut1 .nv-pie-title {
+            opacity: 0.4;
+            fill: rgba(224, 116, 76, 0.91);
+        }
+
+
+    </style>
+
+</head>
+
+<body onLoad="onLoad();">
+
+<div id="left-nav">
+    <div class="welcome">Welcome</div>
+    <div class="title">Menu</div>
+    <ul class="list">
+        <li class="list-item">
+            <a class="item-content" href="#dashboard/1">
+                <i class="ion-pie-graph"></i>
+                <h3>External</h3>
+             
+            </a>
+        </li>
+     
+        
+        <li class="list-item">
+            <a class="item-content"  href="javascript: void(0)"  onclick="goHome()">
+                <i class="icon ion-home"></i>
+                <h3>Home</h3>
+              
+            </a>
+        </li>
+        
+        <li class="list-item">
+            <a class="item-content" href="javascript: void(0)"  onclick="exitFromApp()">
+                <i class="ion-power"></i>
+                <h3>LogOut</h3>
+              
+            </a>
+        </li>
+        
+        
+    </ul>
+</div>
+
+<div id="container" class="transition">
+    
+    <header class="bar bar-header nav-bar bar-stable">
+        <button id="btn-menu" class="button button-icon" style="font-size: 22px;"><i class="ion-navicon-round"></i></button>
+        <h3 class="title">CQPQ Dashboard </h3>  
+
+    </header>
+
+
+
+	
+
+
+    <div id="content">
+	
+</div>
+
+
+
+
+
+
+<script src="js/dashboard1.js"></script>
+<script src="js/dashboard2.js"></script>
+<script src="js/dashboard3.js"></script>
+<script src="js/dashboard4.js"></script>
+ <script src="js/jquery.min.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+
+
+</html>

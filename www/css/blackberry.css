@@ -1,0 +1,251 @@
+/* bb main containers */
+body {
+    margin: 0;
+    font-family: Arial, Helvetica;
+    font-size:16px;
+	background: white;
+    color: black;
+    overflow-x: hidden;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+.footer1 {  
+    position: absolute;
+    width: 100%;
+    height: 100px; /* height of footer */
+    bottom: 0px;
+    margin-top: -100px; /* height of footer */
+	border-top: 3px solid #254A73;
+}
+.head1 {  
+   
+	border-bottom: 1px solid #254A73;
+}
+
+div[data-role="header"] {
+	background: #0F1D40;
+	color: #0F1D40;
+    width: auto;
+    
+ 
+
+}
+
+
+
+/*toolbar */
+div[data-role="header"] {
+	border-bottom:0px solid lightgray;
+	height: 33px;
+	line-height: 33px;
+	padding-left: 0px;
+	padding-bottom: 0px;
+	width:100%;
+	//color: #0F1D40;
+	background: url(../img/back2.png);
+	/////////background: url(img/od.gif);
+	
+}
+
+div[data-role="header"] .noButton {
+    display:hidden;
+}
+
+
+div[data-role="header"] h1 {
+	margin: 0;
+	padding: 0px;
+	padding-bottom: 6px;
+	padding-top: 2px;
+    width: auto;
+    font-size: 24px;
+    //max-height: 18px;
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+	font-family: Retro;
+    //color: #FFFFFF;
+	color: #191970;
+    font-weight: bold;
+    // background: url(../img/onlylogo.jpg)  no-repeat top right;
+   
+ 
+   
+}
+div[data-role="header"] h1 span {
+	margin: 0;
+	padding: 0px;
+	padding-bottom: 0px;
+    width: auto;
+    font-size: 6px;
+    ///max-height: 9px;
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    color: #191970;
+    font-weight: bold;
+  
+   
+
+   
+}
+
+
+
+
+/*content div styling*/
+
+
+
+
+
+/*toolbar */
+tr[data-role="header"] {
+	border-bottom:1px solid lightgray;
+	height: 25px;
+	line-height: 25px;
+	padding-left: 4px;
+	padding-bottom: 0px;
+	width:100%;
+	
+}
+
+tr[data-role="header"] .noButton {
+    display:hidden;
+}
+
+
+tr[data-role="header"] td {
+	margin: 0;
+	padding: 4px;
+	padding-bottom: 4px;
+    width: auto;
+    font-size: 16px;
+    max-height: 16px;
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    color: white;
+    font-weight: bold;
+    
+    
+    
+
+   
+}
+
+
+
+ 
+/*tr*/
+
+div[data-role="content"] h2{
+	//background:white;
+	height:15px;
+	font-size:13px;
+	padding-left:2px;
+	padding-bottom:10px;
+	
+	font-weight: bold;
+	border-bottom:1px solid lightgray;
+}
+
+
+
+div.itemLabel {
+    font-weight: bold;
+}
+div.itemValue {
+    font-weight: normal;
+}
+
+@media all and (min-width: 520px){
+    .ui-content ul li div.itemLabel {
+        display: inline-block;
+        width: 50%;
+        overflow: hidden;
+    }
+
+    .ui-content ul li div.itemValue {
+        display: inline-block;
+        overflow: hidden;
+    }
+}
+
+.errorMessage {
+    color: red;
+    text-align: center
+}
+
+.ui-page {
+-webkit-transform-style: flat;
+-webkit-backface-visibility: hidden;
+-webkit-perspective: 800;
+}
+
+
+
+
+.buttonleft{
+    color:NAVY;
+    padding:4px 10px;
+    text-shadow:1px 1px 0 #145982;
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:10px;
+    font-weight:NORMAL;
+    text-align:center;
+    border:1px solid #60b4e5;
+    margin:10px auto;
+    float:left;
+    clear:both;
+    /*
+        CSS3 gradients for webkit and mozilla browsers fallback color for the rest:
+    */
+ 
+    background-color: #CCCCFF;
+    background-image: -moz-linear-gradient(#CCCCFF, #CCFFFF);
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#CCCCFF), to(#CCFFFF));
+    box-shadow:2px 2px 2px #FFFFFF;
+    -moz-box-shadow:2px 2px 2px #FFFFFF;
+    -webkit-box-shadow:2px 2px 2px #FFFFFF;
+    border:1px solid #330066;
+    border-radius:6px;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+}
+ 
+.buttonleft:hover{
+    /* Lighter gradients for the hover effect */
+    text-decoration:none;
+    color:WHITE;
+    background-color: #CADCE9;
+    background-image: -moz-linear-gradient(#CADCE9, #57a5d4);
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#CADCE9), to(#57a5d4));
+    box-shadow:2px 2px 2px #FFF;
+    -moz-box-shadow:2px 2px 2px #FFF;
+    -webkit-box-shadow:2px 2px 2px #FFF;
+}
+.tdborder {
+	margin:0;
+    border-left:1px solid lightgray;
+	///height: 25px;
+	line-height:25px;
+}
+
+.button {
+  color: #FFF;
+  background-color: #900;
+  font-weight: bold;
+}
+
+
+
+.inputbutton {
+	border: 1px solid #006;
+    background: #ffc;
+    border: 1px solid #006;
+    background: #9cf;
+}

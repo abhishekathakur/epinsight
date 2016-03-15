@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" id="viewport" content="initial-scale=1.0,user-scalable=no">
+
+
+
+<script type="text/javascript" src="js/ajax.js"></script>
+<link rel="stylesheet" href="css/blackberry.css" type="text/css">
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<script type="text/javascript">
+var empid="";
+var sales="0";
+var prod="0";
+var inv="0";
+var lvl="0";
+
+var region="";
+var country="";
+var kam="";
+var pwd="";
+///var mydb = window.openDatabase("PSDB", "1.0", "Offilne document store", 400000);
+
+function setfocus() {
+	document.getElementById("txtpwd").focus();
+}
+
+function readFile(filePath, data) {
+	//retrieves the text stored in the file
+	// temp = blackberry.utils.blobToString(data);
+}
+
+
+
+function sendThisRequest(){
+
+			var empid=document.getElementById("txtuid").value;
+			var pwd=document.getElementById("txtpwd").value;
+
+			if(pwd=="" ||empid=="")
+				{
+					alert("Enter ID or Password.");
+				}
+			else
+				{
+				
+				http://192.168.10.142:9201/securityauth/user/_search?q=userid:"+empid+"+pwd:"+pwd+"&default_operator=AND&pretty=true
+		   //  var data_file = "http://192.168.10.142:9201/securityauth/user/_search?q=userid:"+empid+"&pwd:"+pwd+"&pretty=true";
+					var data_file = "http://192.168.10.142:9201/securityauth/user/_search?q=userid:"+empid+"+pwd:"+pwd+"&default_operator=AND&pretty=true";
+						
+				
+				var http_request = new XMLHttpRequest();
+            try{
+               // Opera 8.0+, Firefox, Chrome, Safari
+               http_request = new XMLHttpRequest();
+            }catch (e){
+               // Internet Explorer Browsers
+               try{
+                  http_request = new ActiveXObject("Msxml2.XMLHTTP");
+					
+               }catch (e) {
+				
+                  try{
+                     http_request = new ActiveXObject("Microsoft.XMLHTTP");
+                  }catch (e){
+                     // Something went wrong
+                     alert("Your browser broke!");
+                     return false;
+                  }
+					
+               }
+            }
+			
+            http_request.onreadystatechange = function(){
+            	/// alert(http_request.status);
+               if (http_request.readyState == 4  ){
+            	 if (http_request.status == 200 && http_request.status < 300)
+            		   {
+				  
+				   try {
+		                 
+                  // Javascript function JSON.parse to parse JSON data
+                  var jsonObj = JSON.parse(http_request.responseText);
+                
+                  empid=jsonObj.hits.hits[0]._source.userid;
+                  region=jsonObj.hits.hits[0]._source.region;
+                  country=jsonObj.hits.hits[0]._source.country;
+                  kam=jsonObj.hits.hits[0]._source.kam;
+                  sales=jsonObj.hits.hits[0]._source.sale;
+                  prod=jsonObj.hits.hits[0]._source.prod;
+                  inv=jsonObj.hits.hits[0]._source.inventory;
+                  lvl=jsonObj.hits.hits[0]._source.level;
+
+					  if(empid=="undefined")
+							{   
+								alert("Invalid password/pin is not yet registered!");
+								document.getElementById("txtpwd").value="";
+								setfocus();
+								
+								//document.getElementById("div1").style.visibility = "visible";
+								//document.getElementById("results").innerHTML = "";
+								
+							}
+							else
+							{
+								
+								location.href="main.html?empid="+empid+";"+sales+";"+prod+";"+inv+";"+lvl+";"+region+";"+country+";"+kam;
+								//location.href="Index.html?pin="+pin+"&pwd="+pwd;
+							}
+
+
+                  // jsonObj variable now contains the data structure and can
+                  // be accessed as jsonObj.name and jsonObj.country.
+                  //document.getElementById("Name").innerHTML = jsonObj.hits.hits[0]._source.userid;
+                  //document.getElementById("Country").innerHTML = jsonObj.hits.hits[0]._source.pwd;
+               }
+              
+               catch(err) {
+            	   alert("User is not authorsied");
+            	} 
+               }
+            	 else
+            		 {
+            		 alert("Connection Problem");
+            		 }
+            }
+            
+            
+            }
+            try
+            {
+            http_request.open("GET", data_file, true);
+          
+            http_request.send();
+           }
+           catch(err) {
+        	   alert("Connection Problem");
+        	} 
+         }
+ }
+
+</script>
+
+</head>
+<body>
+
+
+	
+
+
+<div data-role="header" ><h1>EPInsight <span><font size="3" style="normal"><u>@ speed of thought...</u></font></span></h1></div>
+
+
+
+ <div class="container">
+   
+
+<table align='center'>
+<tr valign="top">
+<td  width="100%" valign="top" align='center'>
+
+<tr align='center' >
+<td    align='center' height="30" >
+
+
+
+
+</td>
+
+</tr>
+
+<tr align='center' >
+<td    align='center' >
+
+<img src="img/essel_logo.png" >
+
+
+</td>
+
+</tr>
+<tr align='center' height='30' >
+<td    align='center' >
+
+<h5 class="form-signin-heading">Please sign in</h5>
+
+
+</td>
+
+</tr>
+
+
+<tr align='center' height='30' >
+<td    align='center'>
+<input type="text" id="txtuid" name="txtuid" class="form-control" placeholder="User Name">
+
+
+
+</td>
+
+</tr>
+
+
+<tr align='center' height='10' >
+
+
+<td    align='center'></td>
+</tr>
+<tr align='center' height='30' >
+<td    align='center'>
+<input type="password" id="txtpwd" name="txtpwd" class="form-control" placeholder="Password">
+</td>
+
+</tr>
+
+<tr align='left' height='10' >
+
+
+<td    align='LEFT'></td>
+</tr>
+<tr align='left' height='30' >
+<td    align='center'>
+
+<input class="btn btn-lg btn-primary btn-block" type="button" value="Sign In" onClick="sendThisRequest()" /></td>
+
+</tr>
+<tr align='left' height='30' >
+
+<td align='LEFT'></td>
+</tr>
+
+</TABLE>
+
+
+</td>
+
+<tr>
+<td align="center">
+
+
+    <div class="row">
+        <div class="col-md-4 col-md-offset-2">
+            <div class="panel panel-default">
+               
+
+				
+                <div class="panel-footer">
+				<table><tr>
+				<td align="left"><img src="img/beauty1.gif" width="109" height="21"/></td>
+				<td align="right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/food1.gif" width="43" height="21"/></td></tr></table>
+				 </div>
+                <div class="panel-footer">
+				<table><tr>
+				<td align="left"><img src="img/pharma1.gif" width="109" height="21"/></td>
+				<td align="right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/home1.gif" width="43" height="21"/></td></tr></table>
+				
+				
+				</div>
+				<div class="panel-footer">
+				<table><tr>
+				<td align="center" colspan="2">
+				<td align="right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/oral1.gif" width="43" height="21"/></td></tr></table>
+				
+				</div>
+           
+        </div>
+    </div>
+
+                   
+
+</td>
+</tr>
+</table>
+</div>
+<div id="footer">
+		<p align="center">Developed by IT Team</p>
+</div>
+
+
+
+
+
+</body>
+</html>
+
+
+
+        

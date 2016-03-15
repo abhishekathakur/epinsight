@@ -1,0 +1,228 @@
+#left-nav {
+    position: absolute;
+    width: 200px;
+    top: 0px;
+    left:0px;
+    bottom: 0px;
+    background: #484B4C;
+    border-right: solid 1px #000;
+    color: #ddd;
+}
+
+#left-nav>.welcome {
+    padding: 8px;
+}
+
+#left-nav>.list>li {
+    border-bottom: solid 1px #444;
+    padding: 8px;
+}
+
+.list-item:not(:first-of-type) {
+    border-top: solid 1px #555;
+}
+
+#left-nav>.list>.list-item h3 {
+    margin: 0px;
+    font-size: 16px;
+    color: #e5e5e5;
+}
+
+#left-nav>.list>.list-item p {
+    margin: 0px;
+}
+
+#left-nav>.list>li:active {
+    background-color: #393939;
+}
+
+#left-nav>.title {
+    background: #444;
+    /*opacity: .3;*/
+    padding: 4px;
+    border-top: solid 1px #555;
+    border-bottom: solid 1px #333;
+    /*border-bottom: solid 1px #555;*/
+}
+
+#left-nav i {
+    font-size: 28px;
+    float:left;
+    margin-right: 8px;
+    width: 28px;
+}
+#right{
+    font-size: 28px;
+    float:right;
+     padding-right: 8px;
+    //width: 28px;
+}
+
+#container {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+}
+
+#container.offset {
+    -webkit-transform: translate3d(200px, 0, 0);
+    transform: translate3d(200px, 0, 0);
+}
+
+#container.transition {
+    -webkit-transition-duration: .25s;
+    transition-duration: .25s;
+}
+
+#content {
+    position: absolute;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    top: 44px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background: #ffffff;
+}
+
+.chart {
+    font-family: Helvetica, Arial, Verdana, sans-serif;
+    fill: #666;
+    font-size: 12px;
+    display: table;
+    width: 49%;
+    height: 32%;
+    float: left;
+    margin: 10px;
+    overflow: hidden;
+}
+
+.chart2 {
+    height: 65%;
+}
+
+.chart>.title {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    height: 34px;
+    font-family: 'Segoe UI Light', 'Helvetica Neue Light', 'Segoe UI', 'Helvetica Neue', 'Trebuchet MS', Verdana;
+    font-weight: 200;
+    font-size: 24px;
+}
+
+.chart>.graph {
+    display: table-row;
+    width: 100%;
+    height: 100%;
+}
+
+.chart>.legend {
+    display: table-cell;
+    height: 34px;
+    width: 100%;
+    text-align: center;
+    vertical-align: top;
+}
+
+.chart>.vertical-legend {
+    display: table-cell;
+    height: 150px;
+    width: 200px;
+}
+
+.chart2 {
+    width: 46%;
+    height: 68%;
+    float: left;
+    padding: 10px;
+}
+	
+table {
+	width:100%;
+	border-top:1px solid #2E2EFE;
+	border-right:1px solid #2E2EFE;
+	//border-left:1px solid #2E2EFE;
+	///margin:1em auto;
+		border-collapse:collapse;
+	}
+caption {
+	color: #2E2EFE;
+	font-size:.98em;
+		letter-spacing:.1em;
+		margin:0 0 0 0;
+		padding:0;
+		caption-side:top;
+		text-align:center;
+		font-weight: bold;
+	}	
+tr.odd td	{
+	background:#f7fbff
+	}
+	
+tr.odd .column1	{
+	background:#f4f9fe;
+	}	
+.column1	{
+	background:#f9fcfe;
+	}
+
+td {
+	//color:#678197;
+	border-bottom:1px solid #2E2EFE;
+	border-left:1px solid #2E2EFE;
+	padding:1px 1px;
+	//text-align:right;
+	}
+tr.total td	{
+	background: #1E90FF;
+	text-color: #FFFFFF;
+	font:bold;
+	}				
+th {
+	color:#678197;
+	border-bottom:1px solid #2E2EFE;
+	border-left:1px solid #2E2EFE;
+	///padding:1px 1px;
+	//text-align:left;
+	}							
+thead th {
+	background:#f4f9fe;
+	text-align:center;
+	font:bold  "Century Gothic","Trebuchet MS",Arial,Helvetica,sans-serif;
+	color:#66a3d3
+	}	
+tfoot th {
+	text-align:center;
+	background:#f4f9fe;
+	}	
+tfoot th strong {
+	font:bold 1.2em "Century Gothic","Trebuchet MS",Arial,Helvetica,sans-serif;
+	///margin:.5em .5em .5em 0;
+	color:#66a3d3;
+		}		
+tfoot th em {
+	color:#f03b58;
+	font-weight: bold;
+	font-size: 1.1em;
+	font-style: normal;
+	}	
+
+.color0 {
+    fill: #3880aa;
+}
+
+.color1 {
+    fill: #4da944;
+}
+.color2 {
+    fill: #f26522;
+}
+.color3 {
+    fill: #c6080d;
+}
+.color4 {
+    fill: #672d8b;
+}
